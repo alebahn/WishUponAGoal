@@ -1,13 +1,5 @@
 <html>
 	<head>
-	</head>
-	<body>
-		<h1>hello!</h1>
-		<form action="#" onSubmit="return processForm(this)">
-			<input id="inputMessage"/>
-			<button type="submit">submit</button>
-		</form>
-		<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 		<script>
 			// Initialize Firebase
 			var config = {
@@ -19,9 +11,49 @@
 				messagingSenderId: "318224137825"
 			};
 firebase.initializeApp(config);
+		</script>
+		<script src="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.js"></script>
+		<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.css" />
+		<script type="text/javascript">
+			// FirebaseUI config.
+			var uiConfig = {
+				signInSuccessUrl: '<url-to-redirect-to-on-success>',
+				signInOptions: [
+					// Leave the lines as is for the providers you want to offer your users.
+					firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+					firebase.auth.EmailAuthProvider.PROVIDER_ID,
+				],
+				// tosUrl and privacyPolicyUrl accept either url string or a callback
+				// function.
+				// Terms of service url/callback.
+				tosUrl: '<your-tos-url>',
+				// Privacy policy url/callback.
+				privacyPolicyUrl: function() {
+					window.location.assign('<your-privacy-policy-url>');
+				}
+			};
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+// The start method will wait until the DOM is loaded.
+ui.start('#firebaseui-auth-container', uiConfig);
+		</script>
+	</head>
+	<body>
+		<h1>hello!</h1>
+		<div id="firebaseui-auth-container"></div>
+		<form action="#" onSubmit="return processForm(this)">
+			<input id="inputMessage"/>
+			<button type="submit">submit</button>
+		</form>
+		<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+		<script>
 
 function processForm(form){
-	saveMessage(form.inputMessage);
+	var message = document.getElementById("inputMessage").value;
+	saveMessage(message);
+	console.log(form);
+	console.log('message: '+message);
 	
 	return false;
 }
