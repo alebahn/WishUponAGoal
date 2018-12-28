@@ -3,10 +3,47 @@
 	</head>
 	<body>
 		<h1>hello!</h1>
-		<form>
-			<input/>
+		<form action="#" onSubmit="return processForm(this)">
+			<input id="inputMessage"/>
 			<button type="submit">submit</button>
 		</form>
+		<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyAP-M8b91cy6ShZuYE-hxr89Hj5InjQM_8",
+				authDomain: "wishuponagoal.firebaseapp.com",
+				databaseURL: "https://wishuponagoal.firebaseio.com",
+				projectId: "wishuponagoal",
+				storageBucket: "wishuponagoal.appspot.com",
+				messagingSenderId: "318224137825"
+			};
+firebase.initializeApp(config);
+
+function processForm(form){
+	saveMessage(form.inputMessage);
+	
+	return false;
+}
+function saveMessage(message){
+	var messageObject = {
+		message: message
+	};
+
+	firebase.database().ref('message').push().set(messageObject)
+		.then(function(snapshot) {
+			success(); // some success method
+		}, function(error) {
+			console.log('error' + error);
+			error(); // some error method
+		});
+}
+function success(){
+}
+function error (){
+}
+
+		</script>
 	</body>
 </html>
 
