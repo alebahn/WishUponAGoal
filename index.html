@@ -16,6 +16,8 @@ firebase.initializeApp(config);
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.css" />
     <script type="text/javascript">
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
       // FirebaseUI config.
       var uiConfig = {
         signInSuccessUrl: '#',
@@ -31,11 +33,15 @@ firebase.initializeApp(config);
         // Privacy policy url/callback.
         privacyPolicyUrl: function() {
           window.location.assign('<your-privacy-policy-url>');
+        },
+        callbacks: {
+          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            ui.reset();
+            return false;
+          }
         }
       };
 
-// Initialize the FirebaseUI Widget using Firebase.
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
 // The start method will wait until the DOM is loaded.
   ui.start('#firebaseui-auth-container', uiConfig);
     </script>
