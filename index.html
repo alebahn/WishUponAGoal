@@ -36,6 +36,7 @@ firebase.initializeApp(config);
         },
         callbacks: {
           signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+            console.log("signInSuccess");
             ui.reset();
             return false;
           }
