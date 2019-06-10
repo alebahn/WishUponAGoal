@@ -1,5 +1,5 @@
-import "https://www.gstatic.com/firebasejs/5.7.2/firebase.js"
-import "https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.js"
+import "https://www.gstatic.com/firebasejs/5.7.2/firebase.js";
+import "https://cdn.firebase.com/libs/firebaseui/3.5.1/firebaseui.js";
 
 // Initialize Firebase
 var config = {
